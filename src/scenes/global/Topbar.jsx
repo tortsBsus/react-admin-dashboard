@@ -23,7 +23,7 @@ const Topbar = () => {
         
       >
      <Typography variant="h4">
-      Smart Irrigation Syatem
+      Smart Irrigation System
      </Typography>
       </Box>
 
