@@ -19,14 +19,106 @@ import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import ToggleButton from "@mui/material/ToggleButton";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OpacityIcon from "@mui/icons-material/Opacity";
 import Switch from "@mui/material/Switch";
+import { Paper } from "@mui/material";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import { CardActionArea } from "@mui/material";
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [selected, setSelected] = useState(false);
+  const [temp, setTemp] = useState("wow");
+  const [water, setWater] = useState("wow");
+  const [hummid, setHumid] = useState("wow");
+  const [rain, setRain] = useState("wow");
+  const [latitude, setLatitude] = useState("12.9662976");
+  const [longitude, setLongitude] = useState("77.6404992");
+
+  useEffect(() => {
+    // navigator.geolocation.getCurrentPosition(function (position) {
+    //   // Get the coordinates from the position object
+    //   var lat = position.coords.latitude;
+    //   var lng = position.coords.longitude;
+    //   setLatitude(lat);
+    //   setLongitude(lng);
+
+    //   // Print the coordinates to the console
+    //   console.log("Latitude: " + lat + ", Longitude: " + lng);
+    // });
+
+    fetch("https://api.thingspeak.com/channels/1958878/feeds.json?results=1")
+      .then((response) => response.json())
+      .then((info) => {
+        // setWater(info.feeds[0].field3);
+        setWater(info.feeds[0].field4);
+      });
+
+    fetch(
+      "https://api.openweathermap.org/data/3.0/onecall?lat=" +
+        latitude +
+        "&lon=" +
+        longitude +
+        "&exclude=hourly,daily&appid=406b154331868aa69ddc3dd64454c8c6"
+    )
+      .then((response) => response.json())
+      .then((info) => {
+        setTemp(info.current.temp);
+        setHumid(info.current.humidity);
+        setRain(info.minutely[0].precipitation);
+      });
+  }, []);
+
+  // function convData(link)
+  // {
+
+  // fetch(link)
+  //   .then((response) => response.json())
+  //   .then((info) => {
+
+  //     //console.log(info.feeds[0].field1);
+  //      //console.log(info);
+  //      finalData=[]
+  //       soilMoistureObj={"id":"Soil Moisture","data":[]}
+  //      temperatureObj={"id":"Temperature","data":[]}
+  //      precipitationObj={"id":"Precipitation","data":[]}
+
+  //      info.feeds.forEach(element => {console.log(element)
+
+  //      cordObj={"x":"","y":""}
+  //         cordObj.x=element.created_at
+  //         cordObj.y=element.field1
+  //         //console.log(cordObj)
+  //         soilMoistureObj.data.push(cordObj)
+  //         // console.log(soilMoistureObj)
+  //         // cordObj.y=element.field2
+  //         // console.log(cordObj)
+  //         // temperatureObj.data.push(cordObj)
+  //         // cordObj.y = element.field3;
+  //         // console.log(cordObj)
+  //         // precipitationObj.data.push(cordObj);
+  //          cordObj={"x":"","y":""}
+  //         cordObj.x=element.created_at
+  //         cordObj.y=element.field2
+  //         //console.log(cordObj)
+  //         temperatureObj.data.push(cordObj)
+  //          cordObj={"x":"","y":""}
+  //         cordObj.x=element.created_at
+  //         cordObj.y=element.field3
+  //         //console.log(cordObj)
+  //         precipitationObj.data.push(cordObj)
+
+  //      });
+  //      finalData.push(soilMoistureObj,temperatureObj,precipitationObj)
+  //      //console.log(JSON.stringify(finalData))
+  //      return finalData
+  //   });
+
+  // }
 
   return (
     <Box m="20px">
@@ -41,7 +133,7 @@ const Dashboard = () => {
           <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
         </Grid>
         <Grid item xs={12} md={12} lg={8}>
-          <Box p="1%" backgroundColor={colors.primary[400]}>
+          <Box p="1.70%" backgroundColor={colors.primary[400]}>
             <Box
               mt="25px"
               p="0 30px"
@@ -81,9 +173,7 @@ const Dashboard = () => {
         </Grid>
 
         <Grid item xs={12} md={6} lg={4}>
-          <Box 
-          p="10%" 
-          backgroundColor={colors.primary[400]} >
+          <Box p="10%" backgroundColor={colors.primary[400]}>
             <Typography variant="h5" fontWeight="600">
               Campaign
             </Typography>
@@ -109,7 +199,7 @@ const Dashboard = () => {
         </Grid>
 
         <Grid item xs={12} md={6} lg={6}>
-          <Box p="1%" backgroundColor={colors.primary[400]}>
+          <Box p="3%" backgroundColor={colors.primary[400]}>
             <Typography
               variant="h5"
               fontWeight="600"
@@ -123,74 +213,135 @@ const Dashboard = () => {
           </Box>
         </Grid>
 
-        <Grid item xs={12} md={4} lg={3}>
-          <Box
-            margin="7.5% 0 0 0"
-            padding="10%"
-            backgroundColor={colors.primary[400]}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
+        <Grid item xs={12} md={12} lg={6} container columnSpacing={2}>
+          <Grid item xs={12} md={12}  lg={12}
+           sx={{
+              margin: "1%",
+              display: "flex",
+              flexDirection: "row",
+              flexGrow: "1",
+              alignItems: "stretch",
+            }}
           >
-            <Typography 
-          variant="h3" 
-          fontWeight="600">
-            Current Temperature
-          </Typography>
+            <Card
+             sx={{
+              backgroundColor: colors.primary[400],
+              margin: "0.5%",
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: "1",
+              alignItems: "center",
+              justifyContent:"center",
+            }}
+            >
+              <CardActionArea 
+              sx={{
+                height:"100%",
+                width:"100%",
+                display:"flex",
+                flexDirection:"column",
+                margin:"1%",
+                padding: "1%"
+                
+              }}
+               >
+                <Typography variant="h3">Current Temp</Typography>
+                <Typography variant="h4" color="text.secondary">
+                  {(temp - 273.15).toFixed(2)}°C
+                </Typography>
+              </CardActionArea>
+            </Card>
 
-          </Box>
+            <Card
+             sx={{
+              backgroundColor: colors.primary[400],
+              margin: "0.5%",
+              display: "flex",
+              flexDirection: "column",
+              flexGrow: "1",
+              alignItems: "center",
+              justifyContent:"center",
+            }}
+            >
+              <CardActionArea 
+              sx={{
+                height:"100%",
+                width:"100%",
+                display:"flex",
+                flexDirection:"column",
+                margin:"1%",
+                padding: "1%"
+                
+              }}
+              >
+                <Typography variant="h3">Current Rain</Typography>
+                <Typography variant="h4" color="text.secondary">
+                  {rain}
+                </Typography>
+              </CardActionArea>
+            </Card>
 
-          <Box
-            margin="7.5% 0 0 0"
-            padding="10%"
-            backgroundColor={colors.primary[400]}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Typography 
-          variant="h3" 
-          fontWeight="600">
-            Current Humidity
-          </Typography>
-          </Box>
+            <Card
+              sx={{
+                backgroundColor: colors.primary[400],
+                margin: "0.5%",
+                display: "flex",
+                flexDirection: "column",
+                flexGrow: "1",
+                alignItems: "center",
+                justifyContent:"center",
+              }}
+            >
+              <CardActionArea 
+              sx={{
+                height:"100%",
+                width:"100%",
+                display:"flex",
+                flexDirection:"column",
+                margin:"1%",
+                padding: "1%"
+                
+              }}
+              >
+                <Typography variant="h3">Current Humidity</Typography>
+                <Typography variant="h4" color="text.secondary">
+                  {hummid}
+                </Typography>
+              </CardActionArea>
+            </Card>
+          </Grid>
+
+          <Grid item xs={12} md={12} lg={12} 
+          sx = {{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "stretch",
+            alignContent:"center",
+            justifyItems:"center",
+            justifyContent:"stretch",
+            flexGrow: "1",
+          }}>
+            <Paper
+              sx={{
+                height:"100%",
+                width:"100%",
+                backgroundColor: colors.primary[400],
+                margin: "0 0 0 1% ",
+                padding: "2%",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent:"center",
+                flexGrow: "1",
+              }}
+            >
+              <Typography variant="h3" fontWeight="600">
+                Manually water plantz
+              </Typography>
+              <Switch />
+            </Paper>
+          </Grid>
         </Grid>
-
-        <Grid item xs={12} md={4} lg={3}>
-          <Box
-            margin="7.5% 0 0 0"
-            padding="10%"
-            backgroundColor={colors.primary[400]}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            
-          >
-            <Typography 
-          variant="h3" 
-          fontWeight="600">
-            Current Precipitation
-          </Typography>
-          </Box>
-
-          <Box
-            margin="7.5% 0 0 0"
-            padding="10%"
-            backgroundColor={colors.primary[400]}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-          >
-            <Typography 
-          variant="h3" 
-          fontWeight="600">
-            Manually water plants
-          </Typography>
-          <Switch />
-
-          </Box>
-        </Grid>
-
       </Grid>
     </Box>
   );
