@@ -8,24 +8,14 @@ import {
 } from "@mui/material";
 import { tokens } from "../../theme";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
 import LineChart from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
-import Grid2 from "@mui/material/Unstable_Grid2";
-import ToggleButton from "@mui/material/ToggleButton";
 import { useState, useEffect } from "react";
-import OpacityIcon from "@mui/icons-material/Opacity";
 import Switch from "@mui/material/Switch";
 import { Paper } from "@mui/material";
 import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import { CardActionArea } from "@mui/material";
 
 const Dashboard = () => {
@@ -73,52 +63,7 @@ const Dashboard = () => {
       });
   }, []);
 
-  // function convData(link)
-  // {
-
-  // fetch(link)
-  //   .then((response) => response.json())
-  //   .then((info) => {
-
-  //     //console.log(info.feeds[0].field1);
-  //      //console.log(info);
-  //      finalData=[]
-  //       soilMoistureObj={"id":"Soil Moisture","data":[]}
-  //      temperatureObj={"id":"Temperature","data":[]}
-  //      precipitationObj={"id":"Precipitation","data":[]}
-
-  //      info.feeds.forEach(element => {console.log(element)
-
-  //      cordObj={"x":"","y":""}
-  //         cordObj.x=element.created_at
-  //         cordObj.y=element.field1
-  //         //console.log(cordObj)
-  //         soilMoistureObj.data.push(cordObj)
-  //         // console.log(soilMoistureObj)
-  //         // cordObj.y=element.field2
-  //         // console.log(cordObj)
-  //         // temperatureObj.data.push(cordObj)
-  //         // cordObj.y = element.field3;
-  //         // console.log(cordObj)
-  //         // precipitationObj.data.push(cordObj);
-  //          cordObj={"x":"","y":""}
-  //         cordObj.x=element.created_at
-  //         cordObj.y=element.field2
-  //         //console.log(cordObj)
-  //         temperatureObj.data.push(cordObj)
-  //          cordObj={"x":"","y":""}
-  //         cordObj.x=element.created_at
-  //         cordObj.y=element.field3
-  //         //console.log(cordObj)
-  //         precipitationObj.data.push(cordObj)
-
-  //      });
-  //      finalData.push(soilMoistureObj,temperatureObj,precipitationObj)
-  //      //console.log(JSON.stringify(finalData))
-  //      return finalData
-  //   });
-
-  // }
+  
 
   return (
     <Box m="20px">
@@ -147,14 +92,14 @@ const Dashboard = () => {
                   fontWeight="600"
                   color={colors.grey[100]}
                 >
-                  Revenue Generated
+                 View your temperature and Precipitation conditions
                 </Typography>
                 <Typography
                   variant="h3"
                   fontWeight="bold"
                   color={colors.greenAccent[500]}
                 >
-                  $59,342.32
+                  Environment Report
                 </Typography>
               </Box>
               <Box>
@@ -175,7 +120,7 @@ const Dashboard = () => {
         <Grid item xs={12} md={6} lg={4}>
           <Box p="10%" backgroundColor={colors.primary[400]}>
             <Typography variant="h5" fontWeight="600">
-              Campaign
+              Water Consumption
             </Typography>
             <Box
               display="flex"
@@ -189,10 +134,10 @@ const Dashboard = () => {
                 color={colors.greenAccent[500]}
                 sx={{ mt: "15px" }}
               >
-                $48,352 revenue generated
+                75% of tank water is used
               </Typography>
               <Typography>
-                Includes extra misc expenditures and costs
+                you have to refill soon
               </Typography>
             </Box>
           </Box>
@@ -205,7 +150,7 @@ const Dashboard = () => {
               fontWeight="600"
               sx={{ padding: "30px 30px 0 30px" }}
             >
-              Sales Quantity
+              Soil Moisture Graph
             </Typography>
             <Box height="250px" mt="-20px">
               <BarChart isDashboard={true} />
@@ -336,7 +281,7 @@ const Dashboard = () => {
               }}
             >
               <Typography variant="h3" fontWeight="600">
-                Manually water plantz
+                Manually water plant
               </Typography>
               <Switch />
             </Paper>
