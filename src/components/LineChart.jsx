@@ -2,10 +2,19 @@ import { ResponsiveLine } from "@nivo/line";
 import { useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { mockLineData as data } from "../data/mockData";
+import convData from "./convert";
+import { useEffect, useState } from "preact/hooks";
+
 
 const LineChart = ({ isCustomLineColors = false, isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  // useEffect(() => {
+  //   console.log("in the useEffect");
+  //   // const data = convData("https://api.thingspeak.com/channels/1985902/feeds.json?api_key=KKDDQDQZP8VLRQWR&results=20");
+  //   // console.log(data);
+  // }, []);
 
   return (
     <ResponsiveLine

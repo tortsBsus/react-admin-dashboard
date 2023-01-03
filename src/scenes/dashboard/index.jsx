@@ -17,6 +17,9 @@ import Switch from "@mui/material/Switch";
 import { Paper } from "@mui/material";
 import Card from "@mui/material/Card";
 import { CardActionArea } from "@mui/material";
+import convData from "../../components/convert";
+import Sunag from "../../components/Sunag";
+import Ashwini from "../../components/Ashwini";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -28,8 +31,18 @@ const Dashboard = () => {
   const [rain, setRain] = useState("wow");
   const [latitude, setLatitude] = useState("12.9662976");
   const [longitude, setLongitude] = useState("77.6404992");
-
+  const [link, setLink] = useState("https://api.thingspeak.com/channels/1985902/feeds.json?api_key=KKDDQDQZP8VLRQWR&results=20");
+  
   useEffect(() => {
+
+    fetch(link)
+    .then((response) => response.json())
+    .then((info) => {
+    console.log(info);
+    const data = convData(info);
+    console.table(data.data[0]);
+    });
+
     // navigator.geolocation.getCurrentPosition(function (position) {
     //   // Get the coordinates from the position object
     //   var lat = position.coords.latitude;
@@ -112,14 +125,16 @@ const Dashboard = () => {
             </Box>
 
             <Box height="250px" m="-20px 0 0 0">
-              <LineChart isDashboard={true} />
+              <LineChart 
+              // isDashboard={true}
+               />
             </Box>
           </Box>
         </Grid>
 
         <Grid item xs={12} md={6} lg={4}>
           <Box p="10%" backgroundColor={colors.primary[400]}>
-            <Typography variant="h5" fontWeight="600">
+            {/* <Typography variant="h5" fontWeight="600">
               Water Consumption
             </Typography>
             <Box
@@ -139,13 +154,14 @@ const Dashboard = () => {
               <Typography>
                 you have to refill soon
               </Typography>
-            </Box>
+            </Box> */}
+            <Sunag/>
           </Box>
         </Grid>
 
         <Grid item xs={12} md={6} lg={6}>
           <Box p="3%" backgroundColor={colors.primary[400]}>
-            <Typography
+            {/* <Typography
               variant="h5"
               fontWeight="600"
               sx={{ padding: "30px 30px 0 30px" }}
@@ -154,7 +170,8 @@ const Dashboard = () => {
             </Typography>
             <Box height="250px" mt="-20px">
               <BarChart isDashboard={true} />
-            </Box>
+            </Box> */}
+            <Ashwini/>
           </Box>
         </Grid>
 

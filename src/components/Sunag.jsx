@@ -3,7 +3,7 @@ import React from 'react'
 function Sunag() {
   return (
     <>
-        whatever you add must be within these two empty divs. 
+        whatever sunag adds wil be within these two empty divs. 
     </>
   )
 }
