@@ -2,12 +2,14 @@ import React, { Component } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 
-const LineChartz =({data}) => {
+const BiaxialChart =({data}) => {
 
     const info = data.data;
-    
+
+    console.table(info);
+  
     return (
-      <ResponsiveContainer width="100%" height="100%">
+       <ResponsiveContainer width="100%" height="100%">
         <LineChart
           width={500}
           height={300}
@@ -20,15 +22,19 @@ const LineChartz =({data}) => {
           }}
         >
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis name ="date"   dataKey="x" />
-          <YAxis name={data.id} label={{ value: data.id, angle: -90 }} />
+          <XAxis dataKey="x" />
+          <YAxis yAxisId="left" />
+          <YAxis yAxisId="right" orientation="right" />
           <Tooltip />
           <Legend />
-          <Line type="monotone" dataKey="y" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line yAxisId="left" type="monotone" dataKey="soilData" stroke="#8884d8" activeDot={{ r: 8 }} />
+          <Line yAxisId="right" type="monotone" dataKey="rainData" stroke="#82ca9d" />
         </LineChart>
       </ResponsiveContainer>
     );
   
 }
 
-export default LineChartz;
+export default BiaxialChart;
+
+

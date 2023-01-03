@@ -20,6 +20,8 @@ import { CardActionArea } from "@mui/material";
 import convData from "../../components/convert";
 import Sunag from "../../components/Sunag";
 import Ashwini from "../../components/Ashwini";
+import StackedLineChart from "../../components/StackedLineChart";
+import BiaxialChart from "../../components/BiaxialChart";
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -35,6 +37,7 @@ const Dashboard = () => {
   const [soilData,setSoilData] = useState([]);
   const [tempData,setTempData] = useState([]);
   const [rainData,setRainData] = useState([]);
+  const [allData,setAllData] = useState([]);
 
   useEffect(() => {
 
@@ -46,6 +49,7 @@ const Dashboard = () => {
     setSoilData(data[0]);
     setTempData(data[1]);
     setRainData(data[2]);
+    setAllData(data[3]);
     });
 
     //Obtain the user's latitude and longitude for display and api calls
@@ -144,7 +148,21 @@ const Dashboard = () => {
             <LineChartz data = {tempData}
              />
           </Box>
+
+          <Box height="250px" m="2%">
+            
+            <StackedLineChart data = {allData} 
+             />
           </Box>
+
+          <Box height="250px" m="2%">
+            
+            <BiaxialChart data = {allData} 
+             />
+          </Box>
+
+          </Box>
+
         </Grid>
 {/* 
         <Grid item xs={12} md={6} lg={4}>
