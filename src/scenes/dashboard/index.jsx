@@ -9,7 +9,7 @@ import {
 import { tokens } from "../../theme";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
+import LineChartz from "../../components/LineChart";
 import BarChart from "../../components/BarChart";
 import ProgressCircle from "../../components/ProgressCircle";
 import { useState, useEffect } from "react";
@@ -129,17 +129,27 @@ const Dashboard = () => {
               </Box>
             </Box>
 
-            <Box height="250px" m="-20px 0 0 0">
-              Soil Moisture Graph
-              <LineChart data = {soilData}
+            <Box height="250px" m="2%">
+            
+              <LineChartz data = {soilData}
                />
             </Box>
+            <Box height="250px" m="2%">
+            
+            <LineChartz data = {rainData}
+             />
+          </Box>
+          <Box height="250px" m="2%">
+            
+            <LineChartz data = {tempData}
+             />
+          </Box>
           </Box>
         </Grid>
-
+{/* 
         <Grid item xs={12} md={6} lg={4}>
           <Box p="10%" backgroundColor={colors.primary[400]}>
-            {/* <Typography variant="h5" fontWeight="600">
+            <Typography variant="h5" fontWeight="600">
               Water Consumption
             </Typography>
             <Box
@@ -159,14 +169,13 @@ const Dashboard = () => {
               <Typography>
                 you have to refill soon
               </Typography>
-            </Box> */}
+            </Box> 
             <Sunag/>
           </Box>
         </Grid>
-
         <Grid item xs={12} md={6} lg={6}>
           <Box p="3%" backgroundColor={colors.primary[400]}>
-            {/* <Typography
+           <Typography
               variant="h5"
               fontWeight="600"
               sx={{ padding: "30px 30px 0 30px" }}
@@ -175,10 +184,10 @@ const Dashboard = () => {
             </Typography>
             <Box height="250px" mt="-20px">
               <BarChart isDashboard={true} />
-            </Box> */}
+            </Box> 
             <Ashwini/>
           </Box>
-        </Grid>
+        </Grid> 
 
         <Grid item xs={12} md={12} lg={6} container columnSpacing={2}>
           <Grid item xs={12} md={12}  lg={12}
@@ -309,6 +318,7 @@ const Dashboard = () => {
             </Paper>
           </Grid>
         </Grid>
+        */}
       </Grid>
     </Box>
   );

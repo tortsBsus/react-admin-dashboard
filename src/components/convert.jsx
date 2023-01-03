@@ -15,16 +15,19 @@ const convData = (info,mode) => {
       info.feeds.forEach((element) => {
         cordObj = { x: "", y: "" };
         cordObj.x = element.created_at;
+        cordObj.x = cordObj.x.substring(0,10);
         cordObj.y = element.field1;
         soilMoistureObj.data.push(cordObj);
 
         cordObj = { x: "", y: "" };
         cordObj.x = element.created_at;
+        cordObj.x = cordObj.x.substring(0,10);
         cordObj.y = element.field2;
         temperatureObj.data.push(cordObj);
 
         cordObj = { x: "", y: "" };
         cordObj.x = element.created_at;
+        cordObj.x = cordObj.x.substring(0,10);
         cordObj.y = element.field3;
         precipitationObj.data.push(cordObj);
       });
