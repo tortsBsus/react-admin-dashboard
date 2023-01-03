@@ -32,28 +32,32 @@ const Dashboard = () => {
   const [latitude, setLatitude] = useState("12.9662976");
   const [longitude, setLongitude] = useState("77.6404992");
   const [link, setLink] = useState("https://api.thingspeak.com/channels/1985902/feeds.json?api_key=KKDDQDQZP8VLRQWR&results=20");
-  
+  const [soilData,setSoilData] = useState([]);
+  const [tempData,setTempData] = useState([]);
+  const [rainData,setRainData] = useState([]);
+
   useEffect(() => {
 
+    //fetches historical data from thingspeak for graphs
     fetch(link)
     .then((response) => response.json())
     .then((info) => {
-    console.log(info);
     const data = convData(info);
-    console.table(data.data[0]);
+    setSoilData(data[0]);
+    setTempData(data[1]);
+    setRainData(data[2]);
     });
 
-    // navigator.geolocation.getCurrentPosition(function (position) {
-    //   // Get the coordinates from the position object
-    //   var lat = position.coords.latitude;
-    //   var lng = position.coords.longitude;
-    //   setLatitude(lat);
-    //   setLongitude(lng);
+    //Obtain the user's latitude and longitude for display and api calls
+    navigator.geolocation.getCurrentPosition(function (position) {
+      // Get the coordinates from the browser's position object
+      var lat = position.coords.latitude;
+      var lng = position.coords.longitude;
+      setLatitude(lat);
+      setLongitude(lng);
+    });
 
-    //   // Print the coordinates to the console
-    //   console.log("Latitude: " + lat + ", Longitude: " + lng);
-    // });
-
+    //Fetch the machine learning model ressults from thingspeak
     fetch("https://api.thingspeak.com/channels/1958878/feeds.json?results=1")
       .then((response) => response.json())
       .then((info) => {
@@ -61,6 +65,7 @@ const Dashboard = () => {
         setWater(info.feeds[0].field4);
       });
 
+    //fetch current weather conditions from open weather api  
     fetch(
       "https://api.openweathermap.org/data/3.0/onecall?lat=" +
         latitude +
@@ -125,8 +130,8 @@ const Dashboard = () => {
             </Box>
 
             <Box height="250px" m="-20px 0 0 0">
-              <LineChart 
-              // isDashboard={true}
+              Soil Moisture Graph
+              <LineChart data = {soilData}
                />
             </Box>
           </Box>
