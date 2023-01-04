@@ -7,8 +7,23 @@ import React from 'react';
 const convData = (info,mode) => {
   let finalData, soilMoistureObj,temperatureObj, precipitationObj, cordObj, allData;
 
+  soilMoistureObj = { id: "Soil Moisture", data: [] };
+  if(mode==-1)
+   {
+    info.feeds.forEach((element) => {
+      cordObj = { x: "", y: "" };
+      cordObj.x = element.created_at;
+      cordObj.x = cordObj.x.substring(0,10);
+      cordObj.y = element.field3;
+      soilMoistureObj.data.push(cordObj);
+    });
+
+    return soilMoistureObj;
+
+    }
+
       finalData=[];
-      soilMoistureObj = { id: "Soil Moisture", data: [] };
+      
       temperatureObj = { id: "Temperature", data: [] };
       precipitationObj = { id: "Precipitation", data: [] };
       allData = { id: "Environment", data: [] };

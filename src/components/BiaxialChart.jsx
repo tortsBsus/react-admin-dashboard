@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { tokens } from "../theme";
+import { useTheme } from '@mui/material';
 
+const BiaxialChart =({data, mode}) => {
 
-const BiaxialChart =({data}) => {
 
     const info = data.data;
-
-    console.table(info);
+    const theme = useTheme();
+      const colors = tokens(theme.palette.mode);
   
     return (
        <ResponsiveContainer width="100%" height="100%">
@@ -27,8 +29,13 @@ const BiaxialChart =({data}) => {
           <YAxis yAxisId="right" orientation="right" />
           <Tooltip />
           <Legend />
-          <Line yAxisId="left" type="monotone" dataKey="soilData" stroke="#8884d8" activeDot={{ r: 8 }} />
-          <Line yAxisId="right" type="monotone" dataKey="rainData" stroke="#82ca9d" />
+          
+          {(mode!=1&&mode!=0) && <Line yAxisId="left" type="monotone" dataKey="soilData" stroke={colors.redAccent[400]} dot={false} activeDot={{ r: 8 }} />}
+          {(mode!=2&&mode!=0) &&  <Line yAxisId="right" type="monotone" dataKey="rainData" stroke={colors.greenAccent[400]} dot={false} />}
+          {(mode!=3&&mode!=0) && <Line yAxisId="left" type="monotone" dataKey="tempData" stroke={colors.blueAccent[400]} dot={false} activeDot={{ r: 8 }} />}
+          
+          
+          
         </LineChart>
       </ResponsiveContainer>
     );
