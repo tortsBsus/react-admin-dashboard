@@ -18,19 +18,12 @@ import {
   FormHelperText,
 } from "@mui/material";
 import { tokens } from "../../theme";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import Header from "../../components/Header";
 import LineChartz from "../../components/LineChart";
-import BarChart from "../../components/BarChart";
-import ProgressCircle from "../../components/ProgressCircle";
 import { useState, useEffect } from "react";
-import Switch from "@mui/material/Switch";
-import { Paper } from "@mui/material";
 import Card from "@mui/material/Card";
 import { CardActionArea } from "@mui/material";
 import convData from "../../components/convert";
-import Sunag from "../../components/Sunag";
-import Ashwini from "../../components/Ashwini";
 import StackedAreaChart from "../../components/StackedAreaChart";
 import BiaxialChart from "../../components/BiaxialChart";
 
